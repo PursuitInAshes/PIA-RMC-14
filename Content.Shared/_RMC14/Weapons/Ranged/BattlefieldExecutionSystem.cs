@@ -37,7 +37,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
             return;
 
         var user = args.User;
-        if (user != args.Target)
+        if (user = args.Target)
             return;
 
         if (!TryComp<BattlefieldExecutionComponent>(ent, out var executionComp))
