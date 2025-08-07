@@ -140,6 +140,9 @@
     shakeAmount: 5
     requiredSkills:
       RMCSkillLeadership: 3
+  - type: BattlefieldExecution
+    requiredSkills:
+      Execution: 1
 
 - type: entity
   parent: CMBaseMagazinePistol
