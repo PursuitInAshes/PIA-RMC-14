@@ -32,7 +32,7 @@ public sealed class RMCSuicideSystem : EntitySystem
     {
         SubscribeLocalEvent<RMCSuicideComponent, GetVerbsEvent<Verb>>(OnSuicideGetVerbs);
         SubscribeLocalEvent<RMCSuicideComponent, RMCSuicideDoAfterEvent>(OnSuicideDoAfter);
-        SubscribeLocalEvent<RMCHasSuicidedComponent, UpdateMobStateEvent>(OnHasSuicidedUpdateMobState);
+        SubscribeLocalEvent<RMCExecutedComponent, UpdateMobStateEvent>(OnHasSuicidedUpdateMobState);
     }
 
     private void OnSuicideGetVerbs(Entity<RMCSuicideComponent> ent, ref GetVerbsEvent<Verb> args)
@@ -96,43 +96,10 @@ public sealed class RMCSuicideSystem : EntitySystem
             return;
         }
 
-        if (args.Handled)
-            return;
-
-        args.Handled = true;
-
-        if (_hands.GetActiveItem(user) is not { } held ||
-            !TryComp(held, out GunComponent? gun))
-        {
-            _admin.Add(LogType.RMCSuicide, LogImpact.High, $"{ToPrettyString(user)} failed to suicide: no gun.");
-            return;
-        }
-
-        var ammo = new List<(EntityUid? Entity, IShootable Shootable)>();
-        var ev = new TakeAmmoEvent(1, ammo, Transform(user).Coordinates, user);
-        RaiseLocalEvent(held, ev);
-
-        if (ev.Ammo.Count == 0)
-        {
-            _admin.Add(LogType.RMCSuicide, LogImpact.High, $"{ToPrettyString(user)} failed to suicide: no ammo.");
-            _audio.PlayPredicted(gun.SoundEmpty, held, ent);
-            return;
-        }
-
-        foreach (var (bullet, _) in ev.Ammo)
-        {
-            QueueDel(bullet);
-        }
-
-        _admin.Add(LogType.RMCSuicide, LogImpact.High, $"{ToPrettyString(user)} suicided.");
-        _damageable.TryChangeDamage(user, ent.Comp.Damage, true);
-        _mobState.ChangeMobState(user, MobState.Dead);
-        EnsureComp<RMCHasSuicidedComponent>(user);
-        EnsureComp<CMDefibrillatorBlockedComponent>(user);
-        _audio.PlayPredicted(gun.SoundGunshot, held, ent);
+        // TODO: Activate the generic "Execute" function.
     }
 
-    private void OnHasSuicidedUpdateMobState(Entity<RMCHasSuicidedComponent> ent, ref UpdateMobStateEvent args)
+    private void OnHasSuicidedUpdateMobState(Entity<RMCExecutedComponent> ent, ref UpdateMobStateEvent args)
     {
         args.State = MobState.Dead;
     }

@@ -10,7 +10,7 @@ public sealed partial class CMDefibrillatorBlockedComponent : Component
     public LocId Popup = "defibrillator-unrevivable";
 
     [DataField]
-    public LocId Examine = "rmc-defib-suicide";
+    public LocId Examine = "rmc-defib-unrevivable";
 
     [DataField, AutoNetworkedField]
     public bool ShowOnExamine = true;
