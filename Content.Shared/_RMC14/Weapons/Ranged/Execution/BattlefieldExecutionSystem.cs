@@ -1,6 +1,7 @@
 using Content.Shared._RMC14.Medical.Defibrillator;
 using Content.Shared._RMC14.Suicide;
 using Content.Shared._RMC14.Marines.Skills;
+using Content.Shared._RMC14.Marines.Announce;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.Database;
@@ -13,9 +14,8 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Weapons.Ranged.Execution;
+using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Timing;
 
 namespace Content.Shared._RMC14.Weapons.Ranged.Execution;
 
@@ -26,6 +26,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedMarineAnnounceSystem _marineAnnounce = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SkillsSystem _skills = default!;
@@ -37,7 +38,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
         SubscribeLocalEvent<RMCExecutedComponent, UpdateMobStateEvent>(OnceExecutedUpdateMobState);
     }
 
-    private void OnBEGetVerbs(Entity<BattlefieldExecutionCapableComponent> ent, ref GetVerbsEvent<AlternativeVerb> args) // Change where this is looking. This is looking on
+    private void OnBEGetVerbs(Entity<BattlefieldExecutionCapableComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         var user = args.User;
         var target = args.Target;
@@ -57,7 +58,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
         if (executionComp.RequiredSkills != null && !_skills.HasAllSkills(args.User, executionComp.RequiredSkills))
             return;
 
-        args.Verbs.Add(new Verb
+        args.Verbs.Add(new AlternativeVerb
         {
             Text = Loc.GetString("rmc-battlefield-execution-verb"),
             Act = () =>
@@ -75,17 +76,20 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
                 {
                     _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} started to execute {ToPrettyString(target)}.");
                     var selfMsg = Loc.GetString("rmc-battlefield-execute-start-self", ("target", target));
-                    var othersMsg = Loc.GetString("rmc-battlefield-execute-start-others", ("user", user, "target", target));
+                    var othersMsg = Loc.GetString("rmc-battlefield-execute-start-others", ("user", user), ("target", target));
                     _popup.PopupPredicted(selfMsg, othersMsg, user, user, PopupType.LargeCaution);
                 }
             },
         });
     }
 
-    private void OnBEDoAfter(Entity<BattlefieldExecutionWeaponComponent> ent, ref RMCSuicideDoAfterEvent args) // Change event?
+    private void OnBEDoAfter(Entity<BattlefieldExecutionWeaponComponent> ent, ref RMCSuicideDoAfterEvent args) // Change event
     {
         var user = args.User;
         var target = args.Target;
+        var heldItem = _hands.GetActiveItem(user);
+        var examineText = Loc.GetString("rmc-battlefield-executed-examine");
+
         if (args.Cancelled)
         {
             _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)}'s execution of {ToPrettyString(target)} was cancelled.");
@@ -95,20 +99,27 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
             return;
         }
 
-        // Announcements
-        // TODO: Global Announcement for execution. If apart of the UN faction, this should be done through ARES. If else, nothing? (For like, CLF/SPP commander edge cases?)
+        var aresExecutionText = Loc.GetString("rmc-battlefield-execute-ares-message");
+        SoundSpecifier aresExecutionAudio = new SoundPathSpecifier("/Audio/_RMC14/AI/announce.ogg");
+        var aresExecutionTitle = Loc.GetString("rmc-battlefield-execute-ares-announce");
+        if (user.NpcFactionMember.factions != UNMC) // Change
+            return;
+        else
+        {
+            _marineAnnounce.AnnounceARES(default, aresExecutionText, aresExecutionAudio, aresExecutionTitle);
+        }
 
-        // TODO: Activate the generic "Execute" function.
+        _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} executed {ToPrettyString(target)}.");
+        ExecuteTarget(user, target, heldItem, examineText);
     }
 
     /// <summary>
     /// Generic Function to Execute a person using a weapon with ammo.
-    /// Handles reducing ammo, playing sounds, damaging, preventing revival, and admin logging. Functions using this should provide additional logging (as seen above)
-    /// and handle their own popups if required.
+    /// Handles reducing ammo, playing sounds, damaging, preventing revival, and admin logging. Functions using this should provide additional logging for start and completion of the execution.
     /// </summary>
-    private void Execute(EntityUid user, EntityUid target, EntityUid held, string? examineText)
+    public void ExecuteTarget(EntityUid user, EntityUid target, EntityUid heldItem, string? examineText)
     {
-        if (_hands.GetActiveItem(user) is not { } held || !TryComp(held, out GunComponent? gun))
+        if (!TryComp(heldItem, out GunComponent? gun))
         {
             _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} failed to execute {ToPrettyString(target)}: because they had no valid gun."); // Change, again.
             return;
@@ -116,12 +127,12 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
 
         var ammo = new List<(EntityUid? Entity, IShootable Shootable)>();
         var ev = new TakeAmmoEvent(1, ammo, Transform(user).Coordinates, user);
-        RaiseLocalEvent(held, ev);
+        RaiseLocalEvent(heldItem, ev);
 
         if (ev.Ammo.Count == 0)
         {
-            _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} failed to execute {ToPrettyString(target)} because {ToPrettyString(held)} had no ammo.");
-            _audio.PlayPredicted(gun.SoundEmpty, held, ent);
+            _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} failed to execute {ToPrettyString(target)} because {ToPrettyString(heldItem)} had no ammo.");
+            _audio.PlayPredicted(gun.SoundEmpty, heldItem, user);
             return;
         }
 
@@ -130,20 +141,18 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
             QueueDel(bullet);
         }
 
-        _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} has executed {ToPrettyString(target)} using {ToPrettyString(held)}.");
         _damageable.TryChangeDamage(target, target.Comp.Damage, true);
         _mobState.ChangeMobState(target, MobState.Dead);
         EnsureComp<RMCExecutedComponent>(target);
         EnsureComp<CMDefibrillatorBlockedComponent>(target);
-        _audio.PlayPredicted(gun.SoundGunshot, held, ent);
+        _audio.PlayPredicted(gun.SoundGunshot, heldItem, user);
 
-        if (examinetext != null)
+        if (examineText != null)
         {
-            args.PushMarkup(target.Comp.Examine);
+            args.PushMarkup(target.BattlefieldExecutionWeaponComponent.ExmaineText);
         }
     }
 
-    // This + the localevent subscribing to it cause any updates to the state of the mob to result in it being dead again. Also use this if you are using the "Execute" function.
     private void OnceExecutedUpdateMobState(Entity<RMCExecutedComponent> ent, ref UpdateMobStateEvent args)
     {
         args.State = MobState.Dead;
@@ -151,5 +160,5 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
 }
 
 // TODO:
-// Change location of "Content.Shared/_RMC14/Suicide/RMCExecutedComponent.cs" to be so terrible.
-// Update "RMCSuicideDoAfterEvent" to be generic.
+// Change location of "Content.Shared/_RMC14/Suicide/RMCExecutedComponent.cs" to be not so terrible.
+// Update "RMCSuicideDoAfterEvent" to be generic to execution.

@@ -1,6 +1,5 @@
-﻿using Content.Shared._RMC14.Medical.Defibrillator;
+﻿using Content.Shared._RMC14.Weapons.Ranged.Execution;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Damage;
 using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Hands.EntitySystems;
@@ -8,10 +7,7 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
-using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Shared._RMC14.Suicide;
@@ -20,11 +16,8 @@ namespace Content.Shared._RMC14.Suicide;
 public sealed class RMCSuicideSystem : EntitySystem
 {
     [Dependency] private readonly ISharedAdminLogManager _admin = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
@@ -41,7 +34,7 @@ public sealed class RMCSuicideSystem : EntitySystem
             return;
 
         var user = args.User;
-        if (user != args.Target || args.Hands is not { } hands)
+        if (user != args.Target || args.Hands is not { })
             return;
 
         if (!_hands.TryGetActiveItem(args.Target, out var active) ||
@@ -87,6 +80,8 @@ public sealed class RMCSuicideSystem : EntitySystem
     private void OnSuicideDoAfter(Entity<RMCSuicideComponent> ent, ref RMCSuicideDoAfterEvent args)
     {
         var user = args.User;
+        var target = args.Target;
+        var heldItem = _hands.GetActiveItem(user);
         if (args.Cancelled)
         {
             _admin.Add(LogType.RMCSuicide, LogImpact.High, $"{ToPrettyString(user)}'s suicide was cancelled.");
@@ -96,10 +91,11 @@ public sealed class RMCSuicideSystem : EntitySystem
             return;
         }
 
-        // TODO: Activate the generic "Execute" function.
+        ExecuteTarget(user, target, heldItem, null); // Why isn't this working?
+        _admin.Add(LogType.RMCExecution, LogImpact.High, $"{ToPrettyString(user)} commited suicide.");
     }
 
-    private void OnHasSuicidedUpdateMobState(Entity<RMCExecutedComponent> ent, ref UpdateMobStateEvent args)
+    private void OnHasSuicidedUpdateMobState(Entity<RMCExecutedComponent> ent, ref UpdateMobStateEvent args) // Update this
     {
         args.State = MobState.Dead;
     }

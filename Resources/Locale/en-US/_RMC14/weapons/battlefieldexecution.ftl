@@ -4,3 +4,8 @@ rmc-battlefield-execute-start-self = You raise your gun to ($target)'s head and 
 rmc-battlefield-execute-start-others = {$user} raises their gun in their gun to ($target)'s head, preparing to pull the trigger.
 rmc-battlefield-execute-cancel-self = You lower your gun.
 rmc-battlefield-execute-cancel-others = {$user} lowers their gun.
+
+rmc-battlefield-execute-ares-message = Battlefield Execution Registered; Performed by: {$user}. {$target} has been executed.
+rmc-battlefield-execute-ares-announce = [color=#CECECE][font size=16][bold]Execution Registered[/bold][/font][/color][color=red][font size=16][bold]
+
+    {$message}[/bold][/font][/color]

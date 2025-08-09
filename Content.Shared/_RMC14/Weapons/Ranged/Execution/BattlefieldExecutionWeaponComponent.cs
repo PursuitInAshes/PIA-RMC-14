@@ -15,4 +15,7 @@ public sealed partial class BattlefieldExecutionWeaponComponent : Component
 
     [DataField, AutoNetworkedField]
     public Dictionary<EntProtoId<SkillDefinitionComponent>, int>? RequiredSkills;
+
+    [DataField, AutoNetworkedField]
+    public string ExmaineText = "rmc-battlefield-executed-examine";
 }
