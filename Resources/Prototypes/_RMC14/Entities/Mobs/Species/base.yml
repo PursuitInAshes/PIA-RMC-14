@@ -385,3 +385,4 @@
       components:
       - Xeno
   - type: RMCHealthIcons
+  - type: BattlefieldExecutionCapable

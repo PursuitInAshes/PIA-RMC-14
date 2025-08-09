@@ -13,10 +13,11 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
+using Content.Shared.Weapons.Ranged.Execution;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Shared._RMC14.Weapons.Ranged;
+namespace Content.Shared._RMC14.Weapons.Ranged.Execution;
 
 public sealed class BattlefieldExecutionSystem : EntitySystem
 {
@@ -31,24 +32,28 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<BattlefieldExecutionComponent, GetVerbsEvent<Verb>>(OnBEGetVerbs);
-        SubscribeLocalEvent<BattlefieldExecutionComponent, RMCSuicideDoAfterEvent>(OnBEDoAfter); // Change "RMCSuicideDoAfterEvent"
+        SubscribeLocalEvent<BattlefieldExecutionCapableComponent, GetVerbsEvent<Verb>>(OnBEGetVerbs);
+        SubscribeLocalEvent<BattlefieldExecutionWeaponComponent, RMCSuicideDoAfterEvent>(OnBEDoAfter); // Change "RMCSuicideDoAfterEvent"
         SubscribeLocalEvent<RMCExecutedComponent, UpdateMobStateEvent>(OnceExecutedUpdateMobState);
     }
 
-    private void OnBEGetVerbs(Entity<BattlefieldExecutionComponent> ent, ref GetVerbsEvent<Verb> args)
+    private void OnBEGetVerbs(Entity<BattlefieldExecutionCapableComponent> ent, ref GetVerbsEvent<AlternativeVerb> args) // Change where this is looking. This is looking on
     {
+        var user = args.User;
+        var target = args.Target;
+
         if (!args.CanInteract)
             return;
 
-        var user = args.User;
-        if (user == args.Target)
+        if (user == target)
             return;
 
-        if (!TryComp<BattlefieldExecutionComponent>(ent, out var executionComp))
+        if (_hands.GetActiveItem(user) is not { } heldItem)
             return;
 
-        var target = args.Target;
+        if (!TryComp(heldItem, out BattlefieldExecutionWeaponComponentComp executionComp))
+            return;
+
         if (executionComp.RequiredSkills != null && !_skills.HasAllSkills(args.User, executionComp.RequiredSkills))
             return;
 
@@ -77,7 +82,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
         });
     }
 
-    private void OnBEDoAfter(Entity<BattlefieldExecutionComponent> ent, ref RMCSuicideDoAfterEvent args) // Change event?
+    private void OnBEDoAfter(Entity<BattlefieldExecutionWeaponComponent> ent, ref RMCSuicideDoAfterEvent args) // Change event?
     {
         var user = args.User;
         var target = args.Target;
@@ -100,9 +105,8 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
     /// Generic Function to Execute a person using a weapon with ammo.
     /// Handles reducing ammo, playing sounds, damaging, preventing revival, and admin logging. Functions using this should provide additional logging (as seen above)
     /// and handle their own popups if required.
-    /// Accepts: user, target, held, ?examinetext
     /// </summary>
-    private void Execute()
+    private void Execute(EntityUid user, EntityUid target, EntityUid held, string? examineText)
     {
         if (_hands.GetActiveItem(user) is not { } held || !TryComp(held, out GunComponent? gun))
         {
@@ -139,8 +143,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
         }
     }
 
-    // This + the localevent subscribing to it cause any updates to the state of the mob to result in it being dead again.
-    // Is there some way to reasonably move this into the generic "Execute" function?
+    // This + the localevent subscribing to it cause any updates to the state of the mob to result in it being dead again. Also use this if you are using the "Execute" function.
     private void OnceExecutedUpdateMobState(Entity<RMCExecutedComponent> ent, ref UpdateMobStateEvent args)
     {
         args.State = MobState.Dead;

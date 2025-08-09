@@ -140,7 +140,7 @@
     shakeAmount: 5
     requiredSkills:
       RMCSkillLeadership: 3
-  - type: BattlefieldExecution
+  - type: BattlefieldExecutionWeapon
     requiredSkills:
       Execution: 1
 
