@@ -24,7 +24,7 @@ public sealed class RMCSuicideSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<RMCSuicideComponent, GetVerbsEvent<Verb>>(OnSuicideGetVerbs);
-        SubscribeLocalEvent<RMCSuicideComponent, RMCSuicideDoAfterEvent>(OnSuicideDoAfter);
+        SubscribeLocalEvent<RMCSuicideComponent, RMCSuicideDoAfterEvent>(OnSuicideDoAfter); // Update this event call
         SubscribeLocalEvent<RMCExecutedComponent, UpdateMobStateEvent>(OnHasSuicidedUpdateMobState);
     }
 

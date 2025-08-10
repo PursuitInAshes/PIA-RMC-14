@@ -2,6 +2,7 @@ using Content.Shared._RMC14.Medical.Defibrillator;
 using Content.Shared._RMC14.Suicide;
 using Content.Shared._RMC14.Marines.Skills;
 using Content.Shared._RMC14.Marines.Announce;
+using Content.Shared._RMC14.Weapons.Ranged.Execution;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.Database;
@@ -149,7 +150,7 @@ public sealed class BattlefieldExecutionSystem : EntitySystem
 
         if (examineText != null)
         {
-            args.PushMarkup(target.BattlefieldExecutionWeaponComponent.ExmaineText);
+            args.PushMarkup(Loc.GetString(target.BattlefieldExecutionWeaponComponent.ExmaineText));
         }
     }
 
