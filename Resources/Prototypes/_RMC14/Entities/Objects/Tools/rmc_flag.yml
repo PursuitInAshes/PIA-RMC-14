@@ -45,7 +45,7 @@
   parent: CMBaseStructure
   id: RMCFlagPoleBase
   name: flagpole
-  description: This can be used for various functions.
+  description: Its.. a flagpole.
   suffix: Prop
   components:
   - type: Transform
@@ -55,7 +55,7 @@
     canCollide: false
   - type: Sprite
     drawdepth: Overdoors
-    sprite: _RMC14/Objects/Flags/un_flag.rsi # No 'default' flag sprite, but this is required.
+    sprite: _RMC14/Objects/Flags/un_flag.rsi # No 'default' flag sprite, so this is required.
     state: deploy
     layers: [ ]
   - type: Clickable
