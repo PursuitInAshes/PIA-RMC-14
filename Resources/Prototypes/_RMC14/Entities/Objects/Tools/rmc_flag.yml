@@ -54,7 +54,7 @@
     bodyType: Static
     canCollide: false
   - type: Sprite
-    drawdepth: SmallObjects
+    drawdepth: Overdoors
     sprite: _RMC14/Objects/Flags/un_flag.rsi # No 'default' flag sprite, but this is required.
     state: deploy
     layers: [ ]
