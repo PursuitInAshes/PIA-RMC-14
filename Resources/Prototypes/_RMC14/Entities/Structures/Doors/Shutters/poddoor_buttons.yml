@@ -139,3 +139,11 @@
   components:
   - type: AccessReader
     access: [ [ "CMAccessCommand" ] ]
+
+- type: entity
+  parent: RMCPodDoorButtonBigRed
+  id: RMCPodDoorButtonBigRedCommand
+  suffix: Locked, Command
+  components:
+  - type: AccessReader
+    access: [ [ "CMAccessCommand" ] ]
