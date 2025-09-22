@@ -1,0 +1,148 @@
+# Standard, Outside
+- type: entity
+  parent: RMCAreaBase
+  id: RMCAreaCampAugustine
+  name: Camp Augustine
+  suffix: Bootcamp, Augustine
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: outsidedefault # make
+  - type: Area
+    buildSpecial: true
+    CAS: false
+    fulton: true
+    mortarPlacement: true
+    mortarFire: false
+    lasing: true
+    medevac: true
+    paradropping: true
+    OB: false
+    supplyDrop: false
+    minimapColor: '#6C6767D8' # Change?
+    weatherEnabled: true
+
+# Out of Bounds
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineOob
+  name: Camp Augustine - Out Of Bounds
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: oob # Make
+  - type: Area
+    CAS: false
+    fulton: false
+    lasing: false
+    mortarPlacement: false
+    mortarFire: false
+    medevac: false
+    paradropping: false
+    OB: false
+    supplyDrop: false
+    resinAllowed: false
+    avoidBioscan: false
+    noTunnel: true
+    unweedable: true
+
+# Standard, Indoors
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineIndoors
+  name: Camp Augustine
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: indoorsdefault # make
+  - type: Area
+    CAS: true
+    fulton: false
+    lasing: true
+    mortarPlacement: true
+    mortarFire: false
+    medevac: false
+    paradropping: false
+    OB: false
+    supplyDrop: false
+    resinAllowed: true
+    avoidBioscan: false
+    noTunnel: false
+    unweedable: false
+
+# Mortar Range
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineMortarRange
+  name: Camp Augustine - Mortar Range
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: mortarrange # make
+  - type: Area
+    CAS: true
+    fulton: true
+    lasing: true
+    mortarPlacement: true
+    mortarFire: true
+    medevac: true
+    paradropping: true
+    OB: false
+    supplyDrop: false
+    resinAllowed: true
+    avoidBioscan: false
+    noTunnel: false
+    unweedable: false
+
+# CAS Range
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineCASRange
+  name: Camp Augustine - CAS Range
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: casrange # Make
+  - type: Area
+    CAS: true
+    fulton: true
+    lasing: true
+    mortarPlacement: true
+    mortarFire: true
+    medevac: true
+    paradropping: true
+    OB: false
+    supplyDrop: false
+    resinAllowed: true
+    avoidBioscan: false
+    noTunnel: false
+    unweedable: false
+
+# Simulated City
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineSimulated City
+  name: Camp Augustine - Simulated City
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: simcity # Make
+  - type: Area
+    CAS: true
+    fulton: true
+    lasing: true
+    mortarPlacement: true
+    mortarFire: true
+    medevac: true
+    paradropping: true
+    OB: false
+    supplyDrop: false
+    resinAllowed: true
+    avoidBioscan: false
+    noTunnel: false
+    unweedable: false
+
+# LZ 1 (?)
+
+# LZ 2 (?)
+

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made by PursuitinAshes (Github) for RMC-14, based on (Mostly scale) the area sprites added in: https://github.com/RMC-14/RMC-14/pull/7773",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "casrange"
+    },
+    {
+      "name": "indoorsdefault"
+    },
+    {
+      "name": "mortarrange"
+    },
+    {
+      "name": "oob"
+    },
+    {
+      "name": "outsidedefault"
+    },
+    {
+      "name": "simcity"
+    }
+  ]
+}
