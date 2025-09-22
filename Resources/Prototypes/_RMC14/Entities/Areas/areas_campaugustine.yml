@@ -7,7 +7,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: outsidedefault # make
+    state: outsidedefault
   - type: Area
     buildSpecial: true
     CAS: false
@@ -30,7 +30,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: oob # Make
+    state: oob
   - type: Area
     CAS: false
     fulton: false
@@ -54,7 +54,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: indoorsdefault # make
+    state: indoorsdefault
   - type: Area
     CAS: true
     fulton: false
@@ -78,7 +78,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: mortarrange # make
+    state: mortarrange
   - type: Area
     CAS: true
     fulton: true
@@ -102,7 +102,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: casrange # Make
+    state: casrange
   - type: Area
     CAS: true
     fulton: true
@@ -126,7 +126,7 @@
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
-    state: simcity # Make
+    state: simcity
   - type: Area
     CAS: true
     fulton: true
@@ -141,8 +141,3 @@
     avoidBioscan: false
     noTunnel: false
     unweedable: false
-
-# LZ 1 (?)
-
-# LZ 2 (?)
-
