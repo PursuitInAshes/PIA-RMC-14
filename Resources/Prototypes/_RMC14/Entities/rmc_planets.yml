@@ -326,3 +326,12 @@
     map: /Maps/_RMC14/sorokyne_repaired.yml
     camouflage: Jungle
     inRotation: false
+
+- type: entity
+  id: RMCPlanetCampAugustine
+  name: Camp Augustine
+  components:
+  - type: RMCPlanetMapPrototype
+    map: /Maps/_RMC14/camp_augustine.yml
+    camouflage: Jungle
+    inRotation: false
