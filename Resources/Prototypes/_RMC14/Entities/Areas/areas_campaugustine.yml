@@ -10,14 +10,14 @@
     state: outsidedefault
   - type: Area
     buildSpecial: true
-    CAS: false
+    CAS: true
     fulton: true
     mortarPlacement: true
-    mortarFire: false
+    mortarFire: true
     lasing: true
     medevac: true
     paradropping: true
-    OB: false
+    OB: true
     supplyDrop: false
     minimapColor: '#6c6767d8'
     weatherEnabled: true
@@ -61,10 +61,10 @@
     fulton: false
     lasing: true
     mortarPlacement: true
-    mortarFire: false
+    mortarFire: true
     medevac: false
-    paradropping: false
-    OB: false
+    paradropping: true
+    OB: true
     supplyDrop: false
     weatherEnabled: false
     minimapColor: '#6c6767d8'
@@ -90,7 +90,7 @@
     mortarFire: true
     medevac: true
     paradropping: true
-    OB: false
+    OB: true
     supplyDrop: false
     resinAllowed: true
     avoidBioscan: false
@@ -114,18 +114,18 @@
     mortarFire: true
     medevac: true
     paradropping: true
-    OB: false
+    OB: true
     supplyDrop: false
     resinAllowed: true
     avoidBioscan: false
     noTunnel: false
     unweedable: false
 
-# Simulated City
+# Simulated City, Outside
 - type: entity
   parent: RMCAreaCampAugustine
-  id: RMCAreaCampAugustineSimulated City
-  name: Camp Augustine - Simulated City
+  id: RMCAreaCampAugustineSimulatedCity
+  name: Camp Augustine - Simulated City Outside
   components:
   - type: Sprite
     sprite: _RMC14/Areas/areas_campaugustine.rsi
@@ -138,10 +138,36 @@
     mortarFire: true
     medevac: true
     paradropping: true
-    OB: false
+    OB: true
     supplyDrop: false
     resinAllowed: true
     avoidBioscan: false
     noTunnel: false
     unweedable: false
+    minimapColor: '#6c6767d8'
+
+# Simulated City, Indoors
+- type: entity
+  parent: RMCAreaCampAugustine
+  id: RMCAreaCampAugustineSimulatedCityIndoors
+  name: Camp Augustine - Simulated City Indoors
+  components:
+  - type: Sprite
+    sprite: _RMC14/Areas/areas_campaugustine.rsi
+    state: simcity
+  - type: Area
+    CAS: true
+    fulton: false
+    lasing: true
+    mortarPlacement: true
+    mortarFire: true
+    medevac: false
+    paradropping: true
+    OB: true
+    supplyDrop: false
+    resinAllowed: true
+    avoidBioscan: false
+    noTunnel: false
+    unweedable: false
+    weatherEnabled: false
     minimapColor: '#6c6767d8'
