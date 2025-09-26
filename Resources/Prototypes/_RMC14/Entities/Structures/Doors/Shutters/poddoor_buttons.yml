@@ -139,7 +139,7 @@
   suffix: Locked, Command
   components:
   - type: AccessReader
-    access: [ [ "CMAccessCommand" ] ]
+    access: [ [ "RMCAccessCommand" ] ]
 
 - type: entity
   parent: RMCPodDoorButtonBigRed
@@ -147,4 +147,4 @@
   suffix: Locked, Command
   components:
   - type: AccessReader
-    access: [ [ "CMAccessCommand" ] ]
+    access: [ [ "RMCAccessCommand" ] ]
