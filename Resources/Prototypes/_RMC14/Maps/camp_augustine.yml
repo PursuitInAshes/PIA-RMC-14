@@ -1,0 +1,50 @@
+- type: gameMap
+  id: campaugustine
+  mapName: Camp Augustine
+  mapPath: /Maps/_RMC14/camp_augustine.yml
+  minPlayers: 0
+  maxRandomOffset: 0
+  randomRotation: false
+  fallback: true
+  stations:
+    campaugustine:
+      stationProto: StandardUNMCWarship
+      components:
+      - type: StationNameSetup
+        mapNameTemplate: 'Camp Augustine'
+      - type: StationJobs
+        availableJobs: # Change
+          #Command
+          CMCommandingOfficer: [1, 1]
+          CMExecutiveOfficer: [1, 1]
+          CMSeniorEnlistedAdvisor: [8, 8]
+
+          #Military Police
+          CMChiefMP: [1, 1]
+          CMMilitaryWarden: [1, 1]
+          CMMilitaryPolice: [6, 10]
+
+          #Auxiliary
+          CMAuxiliarySupportOfficer: [1, 1]
+          CMIntelOfficer: [3, 3]
+          CMPilotDropship: [1, 1]
+          CMPilotGunship: [1, 1]
+          CMDropshipCrewChief: [2, 2]
+
+          #Engineering
+          CMChiefEngineer: [1, 1]
+          CMMaintTech: [4, 4]
+
+          #Requisition
+          CMMessTech: [1, 1]
+
+          #Medical
+          CMCMO: [1, 1]
+          CMDoctor: [3, 3]
+          CMNurse: [4, 6]
+
+          #Marines
+          CMSquadLeader: [4, 4]
+          CMCombatTech: [8, 12]
+          CMHospitalCorpsman: [8, 16]
+          CMRifleman: [ -1, -1 ]
