@@ -141,8 +141,8 @@
     - CMMagazineSmg
     - CMMagazineSMGM63
     - RMCMagazineSMGM63Rubber
-  - type: BulletBox
-    bulletType: RMCCartridge10x20mmRubber
+  - type: RefillableByBulletBox
+    bulletType: Bullet10x20mmRubber
 
 - type: entity
   parent: CMCartridgeSMGBase
@@ -296,7 +296,7 @@
       map: [ "enum.BulletBoxLayers2.Fill" ]
       color: "#727e90"
   - type: BulletBox
-    bulletType: RMCCartridge10x20mmRubber
+    bulletType: Bullet10x20mmRubber
 
 ## Tags
 
