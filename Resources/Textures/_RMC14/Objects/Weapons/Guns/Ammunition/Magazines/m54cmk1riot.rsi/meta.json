@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Based off of the M54CMk1 sprites added in https://github.com/RMC-14/RMC-14/pull/7799/files and the visibility markings added in https://github.com/RMC-14/RMC-14/pull/7370, base modified by PursuitInAshes (Github)",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "mag-1"
+    }
+  ]
+}

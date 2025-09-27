@@ -30,6 +30,36 @@
     steps: 2
     zeroVisible: false
   - type: Appearance
+  - type: RefillableByBulletBox
+    bulletType: BulletRifle10x24mmRubber
+
+- type: entity
+  parent: CMMagazineRifleBase
+  id: CMMagazineRifleM54CMK1Rubber
+  name: "M54C MK1 rubber magazine (10x24mm)"
+  components:
+  - type: Tag
+    tags:
+    - CMMagazineRifle
+    - CMMagazineRifleM54CMK1
+    - RMCMagazineRifleM54CMk1Rubber
+  - type: BallisticAmmoProvider
+    mayTransfer: True
+    whitelist:
+      tags:
+      - RMCCartridgeRifle10x24mmRubber
+    proto: RMCCartridgeRifle10x24mmRubber
+    capacity: 95
+  - type: Sprite
+    sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m54cmk1riot.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Appearance
+  - type: RefillableByBulletBox
+    bulletType: BulletRifle10x24mmRubber
 
 - type: entity
   parent: CMMagazineRifleBase
@@ -51,6 +81,8 @@
     capacity: 25
   - type: Sprite
     sprite: _RMC14/Objects/Weapons/Guns/Ammunition/Magazines/m4sprriot.rsi
+  - type: RefillableByBulletBox
+    bulletType: BulletRifle10x24mmRubber
 
 - type: entity
   parent: CMBaseCartridgeRifle
@@ -109,6 +141,8 @@
     - CMMagazineSmg
     - CMMagazineSMGM63
     - RMCMagazineSMGM63Rubber
+  - type: BulletBox
+    bulletType: RMCCartridge10x20mmRubber
 
 - type: entity
   parent: CMCartridgeSMGBase
@@ -220,6 +254,50 @@
   - type: RMCStaminaDamageOnCollide
     damage: 10
 
+- type: entity
+  parent: RMCBoxBulletsBase
+  id: RMCBoxBulletsRifleTraining
+  name: rifle training ammunition box (10x24mm)
+  description: A 10x24mm ammunition box, this one is filled with training ammunition. Used to refill rubber M54C MK1, MK2 and M4SPR magazines. It comes with a leather strap allowing someone to wear it on their back.
+  components:
+  - type: Sprite
+    layers:
+    - state: rifle_box
+      color: "#7b8246"
+    - state: rifle_box_marking
+      color: "#1b197d"
+    - state: rifle_box_generic
+      color: "#ffcb26"
+    - state: rifle_ammo_full_rounds_base
+      map: [ "enum.BulletBoxLayers.Fill" ]
+    - state: rifle_ammo_full_rounds_color
+      map: [ "enum.BulletBoxLayers2.Fill" ]
+      color: "#ffc000"
+  - type: BulletBox
+    bulletType: BulletRifle10x24mmRubber
+
+- type: entity
+  parent: RMCBoxBulletsBase
+  id: RMCBoxBulletsSMGTraining
+  name: SMG training ammunition box (10x20mm)
+  description: A 10x20mm ammunition box, this one is filled with training ammunition. Used to refill M63 rubber magazines. It comes with a leather strap allowing someone to wear it on their back.
+  components:
+  - type: Sprite
+    layers:
+    - state: rifle_box
+      color: "#727e90"
+    - state: rifle_box_marking
+      color: "#1b197d"
+    - state: rifle_box_generic
+      color: "#ffcb26"
+    - state: rifle_ammo_full_rounds_base
+      map: [ "enum.BulletBoxLayers.Fill" ]
+    - state: rifle_ammo_full_rounds_color
+      map: [ "enum.BulletBoxLayers2.Fill" ]
+      color: "#727e90"
+  - type: BulletBox
+    bulletType: RMCCartridge10x20mmRubber
+
 ## Tags
 
 - type: Tag
@@ -239,6 +317,9 @@
 
 - type: Tag
   id: RMCMagazineRifleM4SPRRubber
+
+- type: Tag
+  id: RMCMagazineRifleM54CMk1Rubber
 
 - type: Tag
   id: RMCMagazineSMGM63Rubber
