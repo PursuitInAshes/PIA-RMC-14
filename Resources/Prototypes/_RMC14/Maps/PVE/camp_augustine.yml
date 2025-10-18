@@ -1,7 +1,7 @@
 - type: gameMap
   id: campaugustine
   mapName: Camp Augustine
-  mapPath: /Maps/_RMC14/camp_augustine.yml
+  mapPath: /Maps/_RMC14/PVE/camp_augustine.yml
   minPlayers: 0
   maxRandomOffset: 0
   randomRotation: false
