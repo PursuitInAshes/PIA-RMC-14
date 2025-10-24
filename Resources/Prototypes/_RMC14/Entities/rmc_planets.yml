@@ -427,3 +427,12 @@
     map: /Maps/_RMC14/PVE/sorokyne_repaired.yml
     camouflage: Jungle
     inRotation: false
+
+- type: entity
+  id: RMCPlanetVaraderoRepaired
+  name: New Varadero (Repaired)
+  components:
+  - type: RMCPlanetMapPrototype
+    map: /Maps/_RMC14/PVE/varadero_repaired.yml
+    camouflage: Jungle
+    inRotation: false
