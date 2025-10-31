@@ -66,6 +66,10 @@ public sealed partial class RotaryPhoneComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool TryGetHolderName = true;
+
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField]
+    public bool NotifyAdmins { get; set; } = false;
 }
 
 [Serializable, NetSerializable]

@@ -89,6 +89,55 @@
     - RMCGuideRoleCombatTechnician
     - RMCGuideRoleMaintenanceTechnician
 
+# Admin Fax
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneAdminFaxBase
+  abstract: true
+  components:
+  - type: RotaryPhone
+    category: Comms Relay
+    notifyAdmins: true
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxUNMCHighCommand
+  name: UNMC-HC Communications Office
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxProvostMarshalsOffice
+  name: Provost Communications Office
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxCMBOffice
+  name: CMB Communications Office
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxCLFInformation
+  name: CLF Information Correspondant
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxFreePress
+  name: Free Press Relay
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxWeYaOffice
+  name: We-Ya Communications Office
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxTSEOffice
+  name: TSE Communications Office
+
+- type: entity
+  parent: RMCRotaryPhone
+  id: RMCRotaryPhoneFaxSSPOffice
+  name: SPP Communications Office
 
 # Misc
 - type: entity
