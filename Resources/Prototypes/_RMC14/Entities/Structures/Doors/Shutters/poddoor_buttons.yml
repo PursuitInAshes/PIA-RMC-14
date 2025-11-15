@@ -512,19 +512,3 @@
     marineAnnouncement: rmc-machines-button-marine-announcement-weya
     minimumRoundTimeToPress: 600 # 10 minutes
     useOnlyOnce: true
-
-- type: entity
-  parent: RMCPodDoorButton
-  id: RMCPodDoorButtonCommand
-  suffix: Locked, Command
-  components:
-  - type: AccessReader
-    access: [ [ "RMCAccessCommand" ] ]
-
-- type: entity
-  parent: RMCPodDoorButtonBigRed
-  id: RMCPodDoorButtonBigRedCommand
-  suffix: Locked, Command
-  components:
-  - type: AccessReader
-    access: [ [ "RMCAccessCommand" ] ]
