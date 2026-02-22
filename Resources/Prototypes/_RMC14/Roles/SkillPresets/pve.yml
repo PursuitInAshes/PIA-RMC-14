@@ -128,15 +128,23 @@
 # RCM - TODO
 
 # Misc/Minor
-# CLF Doctor - TODO
+- type: entity
+  parent: RMCSkillPresetPVECorpsman
+  id: RMCSkillPresetPVECLFDoctor
+  name: CLF Doctor
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SkillPreset
+    skills:
+        RMCSkillMedical: 3
+        RMCSkillSurgery: 2
 
 - type: entity
   parent: RMCSkillPresetPVERifleman
   id: RMCSkillPresetPVEForeconRTO
-  name: ForeconRTO
+  name: Forecon RTO
   categories: [ HideSpawnMenu ]
   components:
   - type: SkillPreset
     skills:
         RMCSkillJtac: 3
-
