@@ -29,7 +29,6 @@
         RMCSkillJtac: 1
         RMCSkillMedical: 2
         RMCSkillMeleeWeapons: 1
-        RMCSkillPilot: 1
         RMCSkillSurgery: 1
     - type: JobPrefix
       prefix: rmc-job-prefix-rcm-pve-rifleman
