@@ -20,7 +20,7 @@
       factions:
       - CLF
     - type: Skills
-      preset: RMCSkillPresetPVEPlatoonCommander
+      preset: RMCSkillPresetPVECLFDoctor
     - type: SquadArmorWearer
     - type: JobPrefix
       prefix: rmc-job-prefix-clf-pve-doctor
