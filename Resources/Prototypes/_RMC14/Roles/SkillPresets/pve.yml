@@ -125,8 +125,6 @@
         RMCSkillPowerLoader: 1
         RMCSkillVehicles: 1
 
-# RCM - TODO
-
 # Misc/Minor
 - type: entity
   parent: RMCSkillPresetPVECorpsman
