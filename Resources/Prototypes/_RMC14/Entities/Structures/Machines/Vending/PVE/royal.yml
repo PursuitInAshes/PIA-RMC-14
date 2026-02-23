@@ -123,7 +123,7 @@
       takeOne: CMPrimary
       entries:
       - id: RMCVendorBundleRCMPVEMGL
-      - id: RMCMortarKit # TODO RMC14 L53A1 light mortar kit
+      - id: RMCVendorBundleRCMPVEMortar
     - name: Helmet (Mandatory)
       takeOne: RMCAccessories
       entries:
