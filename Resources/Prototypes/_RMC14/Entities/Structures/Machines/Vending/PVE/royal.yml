@@ -434,7 +434,7 @@
         amount: 5
       - id: CMEntrenchingTool
         amount: 2
-      - id: RMCBinoculars
+      - id: RMCBinocularsPVE
         amount: 2
       - id: RMCAttachmentRailFlashlight
         amount: 5
