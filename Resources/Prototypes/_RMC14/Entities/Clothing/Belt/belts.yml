@@ -2012,7 +2012,7 @@
       components:
       - Gun
 
-- type: entity 
+- type: entity
   parent: RMCBeltRoyalMortar
   id: RMCBeltRoyalMortarFilled
   suffix: PVE, RCM, Filled
@@ -2040,7 +2040,7 @@
     - id: RMCWeaponPistolL14
       amount: 1
     - id: RMCMagazinePistolL14
-      amount: 5
+      amount: 6
 
 - type: Tag
   id: RMCNailgunHolster
