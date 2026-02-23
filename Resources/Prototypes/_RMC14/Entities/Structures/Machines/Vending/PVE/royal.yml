@@ -20,7 +20,6 @@
       - id: RMCVendorBundleRCMPVEAssaultEngi
       - id: RMCPVEArmorCaseRoyalPointman
       - id: CMHandsBlackInsulated
-      - id: RMCWeaponRifleL90A2Breacher
     - name: Heavy-Duty Breaching Equipment # TODO RMC royal marines breaching hammer, XM51 is placeholder
       choices: { CMPrimary: 1 }
       entries:
