@@ -245,12 +245,6 @@
       "name": "boiler"
     },
     {
-      "name": "predalien_larva"
-    },
-    {
-      "name": "predalien"
-    },
-    {
       "name": "xenoqueen"
     },
     {
@@ -797,40 +791,10 @@
       "name": "hefa"
     },
     {
-      "name": "background_cultist"
-    },
-    {
-      "name": "cultist"
-    },
-    {
-      "name": "cult_leader"
-    },
-    {
-      "name": "cult_synth"
-    },
-    {
-      "name": "predator"
-    },
-    {
       "name": "thrall"
     },
     {
       "name": "bracer_stolen"
-    },
-    {
-      "name": "predator_ancient"
-    },
-    {
-      "name": "predator_leader"
-    },
-    {
-      "name": "predator_elder"
-    },
-    {
-      "name": "predator_elite"
-    },
-    {
-      "name": "predator_young"
     },
     {
       "name": "hellhound"
