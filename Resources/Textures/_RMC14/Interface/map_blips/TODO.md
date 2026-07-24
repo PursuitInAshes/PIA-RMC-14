@@ -14,14 +14,3 @@ Meta Files
     We-Ya
     Whiskey_Outpost
     Xeno
-
-Folder Organization
-    CLF
-    CMB
-    freelancer
-    objects
-    other
-    SPP
-    TSE
-    UNMC
-    WeYa
